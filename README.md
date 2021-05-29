@@ -19,3 +19,5 @@ To run it, first clone the repo: `git clone github.com/XieGuochao/csapp`.
 Make the folder `labs` accessable by our container: `sudo chmod a+rwx -R ./labs`.
 
 Then, run `docker run -p 7777:7777 -v "$PWD/labs:/home/csapp/project" csapp`, which will sync your lab codes with the Code Server. You can find all files in `labs` under `/home/csapp/project`.
+
+You can access your labs via browser [http://localhost:7777/](http://localhost:7777/) with password `csapp`.
