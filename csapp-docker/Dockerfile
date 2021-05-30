@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
 
 # Please comment this line if you are not using Tencent Cloud network
-COPY sources.list /etc/apt/sources.list
+#COPY sources.list /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install -y cmake gdb python python3 vim emacs locales
@@ -19,6 +19,9 @@ ENV LANG=en_US.utf8 \
 
 RUN curl -fOL github.com.cnpmjs.org/cdr/code-server/releases/download/v3.6.0/code-server_3.6.0_amd64.deb && \
     dpkg -i code-server_3.6.0_amd64.deb
+    
+ADD tomoki1207.pdf-1.1.0.tar /home/csapp/.local/share/code-server/extensions/
+RUN chown csapp /home/csapp/.local/share/*
 
 RUN apt-get install -y net-tools
 RUN usermod -s /bin/bash csapp
