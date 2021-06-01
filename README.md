@@ -2,7 +2,7 @@
 
 CS:APP is an excellent material for learning computer systems and systems programming. However, it is inconvenient to use a virtual machine for self-learners. 
 In this repo, I build a Docker image with most pre-requistes installed and attached all lab materials in it.
-You can directly use this Docker image: [ccr.ccs.tencentyun.com/apartsa/csapp](ccr.ccs.tencentyun.com/apartsa/csapp) 
+You can directly use this Docker image: [ccr.ccs.tencentyun.com/apartsa/csapp](ccr.ccs.tencentyun.com/apartsa/csapp) or Docker Hub Link: [xieguochao/csapp](https://hub.docker.com/r/xieguochao/csapp).
 
 The Docker image is still under construction. You are welcome to contribute by adding dependencies to our Dockerfile.
 
