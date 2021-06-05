@@ -39,16 +39,15 @@ RUN apt-get install -y valgrind
 # Network Packages
 RUN apt-get install -y aria2
 
-# PDF Extension: Not working
-# ADD tomoki1207.pdf-1.1.0.tar /home/csapp/.local/share/code-server/extensions/
-# RUN chown csapp -R /home/csapp/.local/share/
-
 USER csapp
 
-# TODO: C++ Extension
+# PDF Extension
+RUN code-server --install-extension tomoki1207.pdf
 
-# PDF: Not working as well
-# RUN code-server --install-extension tomoki1207.pdf
+# Cpp Extension
+ADD cpptools-linux.vsix /home/csapp/
+RUN code-server --install-extension /home/csapp/cpptools-linux.vsix
+# RUN code-server --install-extension ms-vscode.cpptools
 
 # Formatter Extension
 RUN code-server --install-extension esbenp.prettier-vscode
@@ -66,5 +65,8 @@ EXPOSE 7777
 ENV PASSWORD=csapp
 
 USER csapp
+
+# TODO: C++ Extension
+
 
 CMD [ "code-server", "--bind-addr", "0.0.0.0:7777", "--auth", "password" ]
