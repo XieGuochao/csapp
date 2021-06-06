@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
 
 # Please comment this line if you are not using Tencent Cloud network
-#COPY sources.list /etc/apt/sources.list
+# COPY sources.list /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install -y cmake gdb python python3 vim emacs locales
@@ -45,8 +45,9 @@ USER csapp
 RUN code-server --install-extension tomoki1207.pdf
 
 # Cpp Extension
-ADD cpptools-linux.vsix /home/csapp/
-RUN code-server --install-extension /home/csapp/cpptools-linux.vsix
+RUN mkdir /home/csapp/extensions
+ADD cpptools-linux.vsix /home/csapp/extensions
+RUN code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix
 # RUN code-server --install-extension ms-vscode.cpptools
 
 # Formatter Extension
