@@ -61,6 +61,14 @@ RUN code-server --install-extension equinusocio.vsc-material-theme
 
 USER root
 
+# Python3-pip
+RUN apt-get update
+RUN apt-get install -y python3-dev python3-pip python3-setuptools
+
+# Fuck Extension
+RUN pip3 install thefuck
+RUN echo "eval \"\$(thefuck --alias)\" " >> /home/csapp/.bashrc
+
 RUN chown csapp -R /home/csapp/.local/share/
 
 RUN cp /etc/apt/sources.list /etc/apt/sources-tencent.list
