@@ -53,6 +53,12 @@ RUN code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix
 # Formatter Extension
 RUN code-server --install-extension esbenp.prettier-vscode
 
+# Markdown Extension
+RUN code-server --install-extension yzhang.markdown-all-in-one
+
+# Material Theme Extension
+RUN code-server --install-extension equinusocio.vsc-material-theme 
+
 USER root
 
 RUN chown csapp -R /home/csapp/.local/share/
@@ -66,8 +72,6 @@ EXPOSE 7777
 ENV PASSWORD=csapp
 
 USER csapp
-
-# TODO: C++ Extension
 
 
 CMD [ "code-server", "--bind-addr", "0.0.0.0:7777", "--auth", "password" ]
