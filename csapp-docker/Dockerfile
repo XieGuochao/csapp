@@ -1,3 +1,4 @@
+ARG arch_name=amd64
 FROM ubuntu:20.04
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
@@ -17,7 +18,6 @@ ENV LANG=en_US.utf8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
-ENV arch_name=amd64
 RUN curl -fOL github.com.cnpmjs.org/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_${arch_name}.deb && \
     dpkg -i code-server_3.10.2_${arch_name}.deb
 
