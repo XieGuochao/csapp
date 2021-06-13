@@ -47,7 +47,8 @@ RUN code-server --install-extension tomoki1207.pdf
 # Cpp Extension
 RUN mkdir /home/csapp/extensions
 ADD cpptools-linux.vsix /home/csapp/extensions
-RUN code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix
+ADD cpptools-linux-aarch64.vsix /home/csapp/extensions
+RUN if [ "${arch_name}" = "arm64" ] ; then code-server --install-extension /home/csapp/extensions/cpptools-linux-aarch64.vsix; else code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix; fi
 # RUN code-server --install-extension ms-vscode.cpptools
 
 # Formatter Extension
