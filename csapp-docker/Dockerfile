@@ -1,4 +1,4 @@
-ARG arch_name=amd64
+ARG arch_name=arm64
 FROM ubuntu:20.04
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
