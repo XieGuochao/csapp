@@ -1,5 +1,5 @@
-ARG arch_name=arm64
 FROM ubuntu:20.04
+ARG arch_name=arm64
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
 
@@ -18,7 +18,9 @@ ENV LANG=en_US.utf8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
-RUN curl -fOL github.com.cnpmjs.org/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_${arch_name}.deb && \
+# Network Packages
+RUN apt-get install -y aria2
+RUN aria2c https://github.com.cnpmjs.org/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_${arch_name}.deb && \
     dpkg -i code-server_3.10.2_${arch_name}.deb
 
 RUN apt-get install -y net-tools
@@ -29,16 +31,13 @@ ENV SHELL=/bin/bash
 RUN apt-get install -y cgdb git
 
 # DataLab
-RUN apt-get install -y g++-multilib
+RUN if [ "${arch_name}" = "arm64" ] ; then apt-get install -y g++-multilib-arm-linux-gnueabi; else apt-get install -y g++-multilib; fi
 
 # ArchLab
 RUN apt-get install -y flex bison libgetopt-complete-perl
 
 # CacheLab
 RUN apt-get install -y valgrind
-
-# Network Packages
-RUN apt-get install -y aria2
 
 USER csapp
 
