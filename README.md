@@ -16,6 +16,8 @@ A docker environment is required. You can Google and install Docker.
 
 To run it, first clone the repo: `git clone github.com/XieGuochao/csapp`.
 
+Change directory: `cd csapp`.
+
 Make the folder `labs` accessable by our container: `sudo chmod a+rwx -R ./labs`.
 
 Then, run `docker run -p 7777:7777 -v "$PWD/labs:/home/csapp/project" csapp`, which will sync your lab codes with the Code Server. You can find all files in `labs` under `/home/csapp/project`.
