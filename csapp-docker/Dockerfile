@@ -41,11 +41,12 @@ RUN apt-get install -y valgrind
 
 USER csapp
 
-# PDF Extension
-RUN code-server --install-extension tomoki1207.pdf
+# Office Viewer Extension
+RUN mkdir /home/csapp/extensions
+ADD cweijan.vscode-office-2.0.3.vsix /home/csapp/extensions
+RUN code-server --install-extension /home/csapp/extensions/cweijan.vscode-office-2.0.3.vsix
 
 # Cpp Extension
-RUN mkdir /home/csapp/extensions
 ADD cpptools-linux.vsix /home/csapp/extensions
 RUN code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix
 # RUN code-server --install-extension ms-vscode.cpptools
