@@ -17,7 +17,7 @@ The code server is based on [https://github.com/cdr/code-server](https://github.
 
 ### Clone Repository
 
-1. `git clone --branch 1.7 https://github.com/XieGuochao/csapp.git`.
+1. `git clone --branch 1.8-arm https://github.com/XieGuochao/csapp.git`.
 2. `cd csapp`.
 
 ### Build Image (Optional)
