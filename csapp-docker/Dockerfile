@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 ARG arch_name=amd64
+ARG code_server_version=4.14.1
+ARG cpptools_version=1.16.3
+ARG office_version=3.1.6
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
 
@@ -20,8 +23,8 @@ ENV LANG=en_US.utf8 \
 
 # Network Packages
 RUN apt-get install -y aria2
-RUN aria2c https://github.com.cnpmjs.org/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_${arch_name}.deb && \
-    dpkg -i code-server_3.10.2_${arch_name}.deb
+RUN aria2c https://github.com/coder/code-server/releases/download/v${code_server_version}/code-server_${code_server_version}_${arch_name}.deb && \
+    dpkg -i code-server_${code_server_version}_${arch_name}.deb
 
 RUN apt-get install -y net-tools
 RUN usermod -s /bin/bash csapp
@@ -43,12 +46,12 @@ USER csapp
 
 # Office Viewer Extension
 RUN mkdir /home/csapp/extensions
-ADD cweijan.vscode-office-2.0.3.vsix /home/csapp/extensions
-RUN code-server --install-extension /home/csapp/extensions/cweijan.vscode-office-2.0.3.vsix
+ADD cweijan.vscode-office-${office_version}.vsix /home/csapp/extensions
+RUN code-server --install-extension /home/csapp/extensions/cweijan.vscode-office-${office_version}.vsix
 
 # Cpp Extension
-ADD cpptools-linux.vsix /home/csapp/extensions
-RUN code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix
+ADD cpptools-linux-${cpptools_version}.vsix /home/csapp/extensions
+RUN code-server --install-extension /home/csapp/extensions/cpptools-linux-${cpptools_version}.vsix
 # RUN code-server --install-extension ms-vscode.cpptools
 
 # Formatter Extension
@@ -72,9 +75,9 @@ RUN echo "eval \"\$(thefuck --alias)\" " >> /home/csapp/.bashrc
 
 RUN chown csapp -R /home/csapp/.local/share/
 
-RUN cp /etc/apt/sources.list /etc/apt/sources-tencent.list
-RUN mv /etc/apt/sources.backup.list /etc/apt/sources.list
-RUN apt-get update
+# RUN cp /etc/apt/sources.list /etc/apt/sources-tencent.list
+# RUN mv /etc/apt/sources.backup.list /etc/apt/sources.list
+# RUN apt-get update
 
 EXPOSE 7777
 
