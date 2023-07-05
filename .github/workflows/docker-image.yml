@@ -2,9 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - '*'
 
 jobs:
 
@@ -16,4 +15,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       working-directory: csapp-docker
-      run: docker build . --tag xieguochao/csapp
+      run: docker build . --tag xieguochao/csapp:${{  github.ref_name }}
+      
+    - name: Login DockerHub
+      run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u xieguochao
+      
+    - name: Push Docker image
+      run: docker push xieguochao/csapp:${{  github.ref_name }}
