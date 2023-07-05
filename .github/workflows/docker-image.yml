@@ -19,9 +19,9 @@ jobs:
       
     - name: Login DockerHub
       uses: docker/login-action@v2
-        with:
-          username: xieguochao
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      with:
+        username: xieguochao
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
       
     - name: Push Docker image
       run: docker push xieguochao/csapp:${{  github.ref_name }}
