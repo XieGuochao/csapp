@@ -23,13 +23,13 @@ The code server is based on [https://github.com/cdr/code-server](https://github.
 ### Build Image (Optional)
 
 1. `cd csapp-docker`
-2. `docker build -t csapp .`.
+2. `docker build -t csapp:arm .`.
 
 ### Run
 
 Under the root directory.
 
-`docker run -p 7777:7777 -v "$PWD/labs:/home/csapp/project" csapp`
+`docker run -p 7777:7777 -v "$PWD/labs:/home/csapp/project" csapp:1.8-arm`
 
 Then you can access your labs via browser [http://localhost:7777/](http://localhost:7777/) with password `csapp`. You can find all files in `labs` under `/home/csapp/project`.
 

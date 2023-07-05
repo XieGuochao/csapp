@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 ARG arch_name=arm64
+ARG code_server_version=4.14.1
+ARG cpptools_version=1.16.3
+ARG office_version=3.1.6
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.backup.list
 
@@ -20,8 +23,8 @@ ENV LANG=en_US.utf8 \
 
 # Network Packages
 RUN apt-get install -y aria2
-RUN aria2c https://github.com.cnpmjs.org/cdr/code-server/releases/download/v3.10.2/code-server_3.10.2_${arch_name}.deb && \
-    dpkg -i code-server_3.10.2_${arch_name}.deb
+RUN aria2c https://github.com/coder/code-server/releases/download/v${code_server_version}/code-server_${code_server_version}_${arch_name}.deb && \
+    dpkg -i code-server_${code_server_version}_${arch_name}.deb
 
 RUN apt-get install -y net-tools
 RUN usermod -s /bin/bash csapp
@@ -46,10 +49,8 @@ RUN code-server --install-extension tomoki1207.pdf
 
 # Cpp Extension
 RUN mkdir /home/csapp/extensions
-ADD cpptools-linux.vsix /home/csapp/extensions
-ADD cpptools-linux-aarch64.vsix /home/csapp/extensions
-RUN if [ "${arch_name}" = "arm64" ] ; then code-server --install-extension /home/csapp/extensions/cpptools-linux-aarch64.vsix; else code-server --install-extension /home/csapp/extensions/cpptools-linux.vsix; fi
-# RUN code-server --install-extension ms-vscode.cpptools
+ADD cpptools-linux-aarch64-${cpptools_version}.vsix /home/csapp/extensions
+RUN if [ "${arch_name}" = "arm64" ] ; then code-server --install-extension /home/csapp/extensions/cpptools-linux-aarch64-${cpptools_version}.vsix; else code-server --install-extension /home/csapp/extensions/cpptools-linux-${cpptools_version}.vsix; fi
 
 # Formatter Extension
 RUN code-server --install-extension esbenp.prettier-vscode
@@ -72,9 +73,9 @@ RUN echo "eval \"\$(thefuck --alias)\" " >> /home/csapp/.bashrc
 
 RUN chown csapp -R /home/csapp/.local/share/
 
-RUN cp /etc/apt/sources.list /etc/apt/sources-tencent.list
-RUN mv /etc/apt/sources.backup.list /etc/apt/sources.list
-RUN apt-get update
+# RUN cp /etc/apt/sources.list /etc/apt/sources-tencent.list
+# RUN mv /etc/apt/sources.backup.list /etc/apt/sources.list
+# RUN apt-get update
 
 EXPOSE 7777
 
